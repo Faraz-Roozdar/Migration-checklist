@@ -94,24 +94,17 @@
     <ul>
         <li class="menu-item" onclick="toggleSubpage(this, 'subpage1')">1. Improvements in API V3</li>
         <li class="menu-item" onclick="toggleSubpage(this, 'subpage2')">2. Changing authentication to OAuth</li>
+        <li class="menu-item" onclick="toggleSubpage(this, 'subpage3')">3. API Keys to client credentials</li>
+        <li class="menu-item" onclick="toggleSubpage(this, 'subpage4')">4. Migrate old username/passwords to OAuth refresh_tokens by password grant type</li>
+        <li class="menu-item" onclick="toggleSubpage(this, 'subpage5')">5. CORS Whitelisting</li>
+        <li class="menu-item" onclick="toggleSubpage(this, 'subpage6')">6. API Mapping for common use cases</li>
         <ul>
-            <li class="sub-item" onclick="toggleSubpage(this, 'subpage3')">- AUTH_Keys to access_tokens</li>
+            <li class="sub-item" onclick="toggleSubpage(this, 'subpage7')">- Authenticating</li>
+            <li class="sub-item" onclick="toggleSubpage(this, 'subpage8')">- Getting list of devices</li>
+            <li class="sub-item" onclick="toggleSubpage(this, 'subpage9')">- Getting live video</li>
+            <li class="sub-item" onclick="toggleSubpage(this, 'subpage10')">- Getting recorded video</li>
         </ul>
-        <li class="menu-item" onclick="toggleSubpage(this, 'subpage4')">3. API Keys to client credentials</li>
-        <ul>
-            <li class="sub-item" onclick="toggleSubpage(this, 'subpage5')">- Old API keys won’t work</li>
-            <li class="sub-item" onclick="toggleSubpage(this, 'subpage6')">- Get new OAuth client credentials</li>
-        </ul>
-        <li class="menu-item" onclick="toggleSubpage(this, 'subpage7')">4. Migrate old username/passwords to OAuth refresh_tokens by password grant type</li>
-        <li class="menu-item" onclick="toggleSubpage(this, 'subpage9')">5. CORS Whitelisting</li>
-        <li class="menu-item" onclick="toggleSubpage(this, 'subpage10')">6. API Mapping for common use cases</li>
-        <ul>
-            <li class="sub-item" onclick="toggleSubpage(this, 'subpage11')">- Authenticating</li>
-            <li class="sub-item" onclick="toggleSubpage(this, 'subpage12')">- Getting list of devices</li>
-            <li class="sub-item" onclick="toggleSubpage(this, 'subpage13')">- Getting live video</li>
-            <li class="sub-item" onclick="toggleSubpage(this, 'subpage14')">- Getting recorded video</li>
-        </ul>
-        <li class="menu-item" onclick="toggleSubpage(this, 'subpage15')">7. Mixing of V1 and V3 is not recommended</li>
+        <li class="menu-item" onclick="toggleSubpage(this, 'subpage11')">7. Mixing of V1 and V3 is not recommended</li>
 
     </ul>
 
@@ -198,35 +191,114 @@
     </div>
 
     <div id="subpage2" class="subpage">
+        <div id="subpage2-content">
+            <style scoped>        
+                .content {
+                    display: flex;
+                    flex-wrap: wrap;
+                    justify-content: space-between;
+                    align-items: center;
+                }
         
+                .content img {
+                    max-width: 100%;
+                    border-radius: 5px;
+                    margin-bottom: 20px;
+                }
+        
+                .description {
+                    flex: 1;
+                    margin-left: 20px;
+                }
+        
+                .description h2 {
+                    margin-top: 0;
+                    color: #1e80be;
+                }
+        
+                .description ul {
+                    padding-left: 20px;
+                }
+            </style>
+        </head>
+        <body>
+            <div class="container">
+                <div class="content">
+                    <img src="https://miro.medium.com/v2/resize:fill:224:224/1*tvPrQ1JitSxJQiMPhYej_w.jpeg" alt="Eagle Eye Networks API V3">
+                    <div class="description">
+                        <h2>OAuth 2.0 Access Token instead of oauth_key</h2>
+                        <p>In Eagle Eye Networks API V3, the authentication method has been upgraded from using an Auth_key to an OAuth Bearer Access Token. This change brings several advantages, such as:</p>
+                        <ul>
+                            <li>Improved Security: OAuth tokens are less likely to be accidentally leaked or shared, as they can be scoped and have a limited lifetime.</li>
+                            <li>Granular Access Control: OAuth allows fine-grained control over permissions, enabling you to assign specific access rights to different applications and users.</li>
+                            <li>Easier Management: OAuth tokens can be revoked or refreshed without changing API keys, simplifying the management of access credentials.</li>
+                            <li>Industry Standard: OAuth is a widely-accepted authentication standard, which makes it easier for developers to integrate with other services.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div id="subpage3" class="subpage">
-            
-    </div>
-
-    <div id="subpage7" class="subpage">
-        <div id="subpage2-content">
+        <div id="subpage3-content">
             <style scoped>
-                #subpage2-content {
+                #subpage3-content {
                     font-family: Arial, sans-serif;
-                    background-color: #f5f5f5;                    
+                    background-color: hsl(0, 0%, 100%);                    
                 }
 
-                #subpage2-content h2 {
+                #subpage3-content h2 {
                     font-size: 20px;
                     font-weight: bold;
                     color: #1e80be;
                 }
 
-                #subpage2-content p {
+                #subpage3-content p {
                     font-size: 16px;
                     color: #333;
                     line-height: 1.5;
                     margin: 10px;
                 }
 
-                #subpage2-content img {
+                #subpage3-content img {
+                    display: block;
+                    max-width: 100%;
+                    width: 350px;
+                    height: auto;
+                    margin: 0 auto;
+                    border-radius: 5px;
+                }
+            </style>
+            <h2>API V3 Client Credentials</h2>
+            <p style="text-align: center;"><img src="https://www.whiteboxsoft.com/portals/3/Home%20page/cloud-computing2.jpg" alt="Client Credentials Concept"></p>
+            <p>In API V3, Eagle Eye Networks has replaced API keys with client credentials, offering technology partners improved support and a personalized experience. Partners must obtain separate credentials for each application, as the old auth_key is not compatible with API V3. To request API client credentials, partners should contact <a href="mailto:een_support@een.com">een_support@een.com</a>                . This new approach enhances individual application monitoring and management, resulting in tailored support for partners.</p>
+        </div>
+            
+    </div>
+
+    <div id="subpage4" class="subpage">
+        <div id="subpage4-content">
+            <style scoped>
+                #subpage4-content {
+                    font-family: Arial, sans-serif;
+                    background-color: #f5f5f5;                    
+                }
+
+                #subpage4-content h2 {
+                    font-size: 20px;
+                    font-weight: bold;
+                    color: #1e80be;
+                }
+
+                #subpage4-content p {
+                    font-size: 16px;
+                    color: #333;
+                    line-height: 1.5;
+                    margin: 10px;
+                }
+
+                #subpage4-content img {
                     display: block;
                     max-width: 100%;
                     width: 350px;
@@ -269,5 +341,83 @@
     <p>Here you can download a Postman collection for this purpose.</p>
         </div>
     </div>
+    <div id="subpage5" class="subpage">
+        <div id="subpage5-content">
+            <style scoped>
+                #subpage5-content {
+                    font-family: Arial, sans-serif;
+                    background-color: #f5f5f5;
+                }
+    
+                #subpage5-content h2 {
+                    font-size: 20px;
+                    font-weight: bold;
+                    color: #1e80be;
+                }
+    
+                #subpage5-content p {
+                    font-size: 16px;
+                    color: #333;
+                    line-height: 1.5;
+                    margin: 10px;
+                }
+    
+                #subpage5-content img {
+                    display: block;
+                    max-width: 100%;
+                    width: 300px;
+                    height: auto;
+                    margin: 0 auto;
+                }
+            </style>
+            <h2>Seamless Transition for Technology Partners</h2>
+            <p style="text-align: center;">
+                <img src="https://fabwebstudio.com/sites/default/files/styles/fws_hero_blog_730x460/public/2019-11/cors.jpg?itok=zAjkz7eA" alt="Sample Image">
+            </p>
+            <p>
+                To ensure a seamless transition for our technology partners, we have pre-whitelisted all V1/V2 integration domains in the V3 CORS whitelist. Existing partners can effortlessly begin integrating with API V3 without the need to register their domains again. Experience the enhanced capabilities and improved support of API V3 by starting your integration today.
+            </p>
+        </div>
+    </div>
+    <div id="subpage11" class="subpage">
+        <div id="subpage11-content">
+            <style scoped>
+                #subpage11-content {
+                    font-family: Arial, sans-serif;
+                    background-color: #f5f5f5;
+                }
+    
+                #subpage11-content h2 {
+                    font-size: 20px;
+                    font-weight: bold;
+                    color: #1e80be;
+                }
+    
+                #subpage11-content p {
+                    font-size: 16px;
+                    color: #333;
+                    line-height: 1.5;
+                    margin: 10px;
+                }
+    
+                #subpage11-content img {
+                    display: block;
+                    max-width: 100%;
+                    width: 300px;
+                    height: auto;
+                    margin: 0 auto;
+                }
+            </style>
+            <h2>Avoid Mixing V1/V2 and V3 Integrations</h2>
+            <p style="text-align: center;">
+                <img src="https://cdn.xxl.thumbs.canstockphoto.com/simple-and-complicated-paths-easy-and-difficult-way-from-a-to-b-choice-and-success-solution-in-eps-vectors_csp60375632.jpg" alt="Sample Image">
+            </p>
+            <p>
+                We strongly advise against mixing integrations with V1/V2 and V3, as doing so would require two concurrent integrations, complicating development efforts. Additionally, combining these versions may result in decreased response times, affecting your application's performance. For a more efficient and streamlined experience, we recommend focusing solely on API V3 integration.
+            </p>
+        </div>
+    </div>
+    
+</div>
 </body>
 </html>
