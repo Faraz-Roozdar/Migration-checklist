@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        h1 {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .menu-item {
+            background-color: rgba(30, 128, 190, 0.5);
+            color: #ffffff;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .sub-item {
+            background-color: rgba(30, 128, 190, 0.7);
+            margin-left: 20px;
+            margin-bottom: 10px;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .menu-item:hover, .sub-item:hover {
+            background-color: rgba(24, 102, 152, 0.5);
+        }
+
+        .subpage {
+            display: none;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        img {
+            display: block;
+            max-width: 100%;
+            height: auto;
+            margin: 0 auto;
+        }
+    </style>
+    
+    <script>
+        function toggleSubpage(listItem, subpageId) {
+            const subpages = document.querySelectorAll(".subpage");
+            subpages.forEach(subpage => {
+                if (subpage.id === subpageId) {
+                    if (subpage.style.display === "block") {
+                        subpage.style.display = "none";
+                        listItem.parentElement.removeChild(subpage);
+                        document.body.appendChild(subpage);
+                    } else {
+                        subpage.style.display = "block";
+                        listItem.parentNode.insertBefore(subpage, listItem.nextSibling);
+                    }
+                } else {
+                    subpage.style.display = "none";
+                    if (subpage.parentElement) {
+                        subpage.parentElement.removeChild(subpage);
+                        document.body.appendChild(subpage);
+                    }
+                }
+            });
+        }
+    </script>
+
+</head>
+<body>
+    <h1 class="title">Migration from API V1/V2 to API V3</h1>
+    <p> Here is a checklist you can use to migrate your existing API integration from API V1/2 to API V3.</p>
+    <ul>
+        <li class="menu-item" onclick="toggleSubpage(this, 'subpage1')">1. Improvements in API V3</li>
+        <li class="menu-item" onclick="toggleSubpage(this, 'subpage2')">2. Changing authentication to OAuth</li>
+        <ul>
+            <li class="sub-item" onclick="toggleSubpage(this, 'subpage3')">- AUTH_Keys to access_tokens</li>
+        </ul>
+        <li class="menu-item" onclick="toggleSubpage(this, 'subpage4')">3. API Keys to client credentials</li>
+        <ul>
+            <li class="sub-item" onclick="toggleSubpage(this, 'subpage5')">- Old API keys won’t work</li>
+            <li class="sub-item" onclick="toggleSubpage(this, 'subpage6')">- Get new OAuth client credentials</li>
+        </ul>
+        <li class="menu-item" onclick="toggleSubpage(this, 'subpage7')">4. Migrate old username/passwords to OAuth refresh_tokens by password grant type</li>
+        <li class="menu-item" onclick="toggleSubpage(this, 'subpage9')">5. CORS Whitelisting</li>
+        <li class="menu-item" onclick="toggleSubpage(this, 'subpage10')">6. API Mapping for common use cases</li>
+        <ul>
+            <li class="sub-item" onclick="toggleSubpage(this, 'subpage11')">- Authenticating</li>
+            <li class="sub-item" onclick="toggleSubpage(this, 'subpage12')">- Getting list of devices</li>
+            <li class="sub-item" onclick="toggleSubpage(this, 'subpage13')">- Getting live video</li>
+            <li class="sub-item" onclick="toggleSubpage(this, 'subpage14')">- Getting recorded video</li>
+        </ul>
+        <li class="menu-item" onclick="toggleSubpage(this, 'subpage15')">7. Mixing of V1 and V3 is not recommended</li>
+
+    </ul>
+
+    <div id="subpage1" class="subpage">
+        <div id="subpage1-content">
+            <style scoped>
+                #subpage1-content {
+                    font-family: Arial, sans-serif;
+                    margin: 0;
+                    padding: 0;
+                    background-color: #f5f5f5;
+                }
+                #subpage1-content h1 {
+                    font-size: 36px;
+                    color: #1e80be;
+                    text-align: center;
+                    margin-top: 50px;
+                }
+                .container {
+                    display: flex;
+                    flex-wrap: wrap;
+                    justify-content: center;
+                    margin: 50px;
+                }
+    
+                .box {
+                    background-color: white;
+                    border: 1px solid #ccc;
+                    padding: 20px;
+                    margin: 10px;
+                    width: 330px;
+                    height: 330px;
+                    text-align: center;
+                    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                }
+    
+                img {
+                    width: 200px;
+                    height: auto;
+                }
+    
+                .box h2 {
+                    font-size: 24px;
+                    color: #333;
+                    margin-top: 20px;
+                }
+    
+                .box p {
+                    font-size: 16px;
+                    color: #777;
+                    margin-top: 10px;
+                }
+            </style>
+            <h1>Migrate to Eagle Eyes' API V3</h1>
+            <div class="container">
+                <div class="box">
+                    <img src="https://traefik.io/static/8cdc72375511b433b8f89ca95bbb4b3e/Blog_without_copies@2x--2-.jpg" alt="Improved Security">
+                    <h2>Improved Security</h2>
+                    <p>API V3 implements OAuth 2.0, ensuring a more secure authentication process, eliminating the need to store client usernames and passwords. This also resolves account lock issues due to incorrect password entry.</p>
+                </div>
+                <div class="box">
+                    <img src="https://media.istockphoto.com/id/1334130854/photo/horn-speaker-on-top-of-pole.jpg?s=612x612&w=0&k=20&c=X_0_qpFYkgSjKFCoLB4tlDaicSLDVqUC4Zf0W9ZPD3k=" alt="Two-Way Audio Support">
+                    <h2>Two-Way Audio Support</h2>
+                    <p>API V3 enables 2-way audio (talk down) based on the WebRTC protocol, offering both SDK and non-SDK options.</p>
+                </div>
+                <div class="box">
+                    <img src="https://thumbs.dreamstime.com/b/response-time-clock-fast-speed-service-attention-d-illustration-79890636.jpg" alt="Faster Response Time">
+                    <h2>Faster Response Time</h2>
+                    <p>Experience significantly faster response times, particularly for large accounts, thanks to API V3's pagination feature.</p>
+                </div>
+                <div class="box">
+                    <img src="https://l450v.alamy.com/450v/2cdeea3/blue-camera-icon-live-media-streaming-application-on-different-devices-laptop-smartphone-tv-tablet-monitor-conference-video-calls-with-2cdeea3.jpg" alt="Streamlined Video Playback">
+        <h2>Streamlined Video Playback</h2>
+        <p>API V3 simplifies playing live and recorded video by supporting various media formats and progressive download.</p>
+        </div>
+        <div class="box">
+        <img src="https://img.freepik.com/premium-vector/four-piece-puzzle-solution_3482-1313.jpg" alt="Versatile Integration">
+        <h2>Versatile Integration</h2>
+        <p>API V3 offers flexibility in leveraging its features through direct endpoint calls or SDKs for all platforms.</p>
+        </div>
+        </div>
+        <p style="text-align: center; font-size: 18px; color: #333; margin-bottom: 50px;">Make the switch to Eagle Eye Networks API V3 to provide your technology partners with a more secure, faster, and versatile integration experience.</p>
+        </div>
+    </div>
+
+    <div id="subpage2" class="subpage">
+        
+    </div>
+
+    <div id="subpage3" class="subpage">
+            
+    </div>
+
+    <div id="subpage7" class="subpage">
+        <div id="subpage2-content">
+            <style scoped>
+                #subpage2-content {
+                    font-family: Arial, sans-serif;
+                    background-color: #f5f5f5;                    
+                }
+
+                #subpage2-content h2 {
+                    font-size: 20px;
+                    font-weight: bold;
+                    color: #1e80be;
+                }
+
+                #subpage2-content p {
+                    font-size: 16px;
+                    color: #333;
+                    line-height: 1.5;
+                    margin: 10px;
+                }
+
+                #subpage2-content img {
+                    display: block;
+                    max-width: 100%;
+                    width: 350px;
+                    height: auto;
+                    margin: 0 auto;
+                }
+            </style>
+        <h2>Migration via password grant type&nbsp;</h2>
+    <p style="text-align: center;"><img src="https://th.bing.com/th/id/OIP.eFVpiFfqD2fSUrXNMi5YFgHaEK?pid=ImgDet&rs=1"></p>
+    <p>First, let&apos;s briefly discuss what OAuth 2.0 is and how it works. OAuth 2.0 is a protocol for granting third-party applications limited access to a user&apos;s resources on a server. It works by allowing a user to authenticate themselves with a server and then authorize a third-party application to access specific resources on their behalf.</p>
+    <p>There are several grant types that developers can use to obtain access tokens/refresh token pairs for their applications. One such grant type is the password grant type, which allows an application to obtain an access token by presenting the user&apos;s username and password directly to the authorization server.</p>
+    <p><strong>Here is a step-by-step guide on how to use the password grant type to obtain an access token for your legacy users:</strong></p>
+    <ul>
+        <li>
+            <p>Obtain your client ID and secret from api_support@een.com if you do not already have one. These credentials are necessary for your application to authenticate with the server.</p>
+        </li>
+        <li>
+            <p>Make a POST request to the token endpoint with the following parameters:</p>
+        </li>
+    </ul>
+    <p><strong><em>grant_type:</em></strong> This should be set to &quot;password&quot; to indicate that you are using the password grant type.<br><strong><em>scope</em></strong>: This parameter specifies the scope of the access token you are requesting. In this case, the scope is &quot;vms.all&quot;.<br><strong><em>username</em></strong>: This is the username of the user whose resources you want to access.<br><strong><em>password</em></strong>: This is the password of the user whose resources you want to access.<br>The request should be made to the following&nbsp;<strong>URL:&nbsp;<a href="https://auth.eagleeyenetworks.com/oauth2/token" target="_self">https://auth.eagleeyenetworks.com/oauth2/token</a></strong></p>
+    <ul>
+        <li>
+            <p>Include the&nbsp;<em>client ID and secret</em> in the request header. The header should be formatted as follows:<br>Authorization: Basic (base64 encoded client ID:client secret)</p>
+        </li>
+        <li>
+            <p>The server will respond with a JSON object containing the access token/refresh token pairs, along with other information such as the token type, and expiration time.</p>
+        </li>
+        <li>
+            <p>Use the access token to access the user&apos;s resources. Include the token in the Authorization header of your API requests, formatted as follows:</p>
+        </li>
+        <li>
+            <p>Authorization: Bearer</p>
+        </li>
+        <li>
+            <p>and use the refresh token to obtain a new access token/refresh token pair.</p>
+        </li>
+    </ul>
+    <p>That&apos;s it! With the password grant type, you can quickly and easily obtain access/refresh tokens for your legacy users and begin migrating them to the more secure OAuth code grant type. Just be sure to follow best practices for securing user credentials and access/refresh tokens, such as using HTTPS and storing tokens securely.</p>
+    <p>Here you can download a Postman collection for this purpose.</p>
+        </div>
+    </div>
+</body>
+</html>
